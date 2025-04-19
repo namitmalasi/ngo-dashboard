@@ -8,12 +8,14 @@ export default function Dashboard() {
 
   const token = localStorage.getItem("token");
 
+  const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
   const fetchDashboardData = async (selectedMonth) => {
     try {
       setLoading(true);
       setError("");
       const res = await fetch(
-        `http://localhost:5000/dashboard?month=${selectedMonth}`,
+        `${API_BASE_URL}/dashboard?month=${selectedMonth}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

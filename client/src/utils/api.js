@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
 const api = axios.create({
-  baseURL: "http://localhost:5000", // change this if you're deploying
+  baseURL: `${API_BASE_URL}`, // change this if you're deploying
 });
 
 api.interceptors.request.use((config) => {

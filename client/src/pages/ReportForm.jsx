@@ -11,6 +11,8 @@ export default function ReportForm() {
 
   const [status, setStatus] = useState({ success: null, message: "" });
 
+  const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -35,7 +37,7 @@ export default function ReportForm() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/report", {
+      const res = await fetch(`${API_BASE_URL}/report`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
