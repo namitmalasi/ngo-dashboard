@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/admin/login", authRoutes);
-app.use("/", reportRoutes);
+app.use("", reportRoutes);
 connectDB();
 
 const PORT = process.env.PORT || 5000;
