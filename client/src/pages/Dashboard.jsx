@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Dashboard() {
   const [month, setMonth] = useState("");
@@ -22,12 +22,10 @@ export default function Dashboard() {
       );
 
       const result = await res.json();
-
+      setData(result);
       if (!res.ok) {
         throw new Error(result.message || "Failed to fetch dashboard data");
       }
-
-      setData(result);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -36,12 +34,12 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => {
-    if (month) {
-      fetchDashboardData(month);
-    }
-  }, [month]);
-
+  // useEffect(() => {
+  //   if (month) {
+  //     fetchDashboardData(month);
+  //   }
+  // }, [month]);
+  console.log("dashboard data", data);
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold mb-4">Admin Dashboard</h2>
@@ -51,7 +49,11 @@ export default function Dashboard() {
         <input
           type="month"
           value={month}
-          onChange={(e) => setMonth(e.target.value)}
+          onChange={(e) => {
+            const selectedMonth = e.target.value;
+            setMonth(selectedMonth);
+            fetchDashboardData(selectedMonth); // ✅ trigger fetch immediately
+          }}
           className="border px-4 py-2 rounded-md"
         />
       </div>
@@ -60,15 +62,15 @@ export default function Dashboard() {
       {error && <p className="text-red-600">{error}</p>}
       {!loading && !error && data && (
         <div className="grid gap-4 mt-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="NGOs Reporting" value={data.totalNGOs || 0} />
-          <StatCard label="People Helped" value={data.peopleHelped || 0} />
+          <StatCard label="NGOs Reporting" value={data?.totalNGOsReporting} />
+          <StatCard label="People Helped" value={data?.totalPeopleHelped} />
           <StatCard
             label="Events Conducted"
-            value={data.eventsConducted || 0}
+            value={data?.totalEventsConducted}
           />
           <StatCard
             label="Funds Utilized (₹)"
-            value={data.fundsUtilized || 0}
+            value={data?.totalFundsUtilized}
           />
         </div>
       )}
