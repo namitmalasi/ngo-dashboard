@@ -37,7 +37,7 @@ export default function ReportForm() {
     }
 
     try {
-      const res = await fetch(`${API_BASE_URL}/report`, {
+      const res = await fetch(`${API_BASE_URL}report`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
