@@ -1,6 +1,5 @@
 import Report from "../model/Report.js";
 
-
 export const submitReport = async (req, res) => {
   try {
     const { ngoId, month, peopleHelped, eventsConducted, fundsUtilized } =
