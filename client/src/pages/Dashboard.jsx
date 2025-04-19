@@ -15,7 +15,7 @@ export default function Dashboard() {
       setLoading(true);
       setError("");
       const res = await fetch(
-        `${API_BASE_URL}dashboard?month=${selectedMonth}`,
+        `${API_BASE_URL}/dashboard?month=${selectedMonth}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
